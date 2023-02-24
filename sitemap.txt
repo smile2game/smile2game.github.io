@@ -1,4 +1,6 @@
-http://example.com/2023/02/23/less-is-more/
-http://example.com/2023/02/22/C/
-http://example.com/2023/02/22/hello-world/
-http://example.com/
+http://smile.github.io/2023/02/22/hello-world/
+http://smile.github.io/2023/02/23/less-is-more/
+http://smile.github.io/2023/02/22/C/
+http://smile.github.io/
+http://smile.github.io/tags/code/
+http://smile.github.io/categories/study/

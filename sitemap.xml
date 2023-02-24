@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2023/02/23/less-is-more/</loc>
+    <loc>http://smile.github.io/2023/02/22/hello-world/</loc>
     
-    <lastmod>2023-02-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2023/02/22/C/</loc>
-    
-    <lastmod>2023-02-22</lastmod>
+    <lastmod>2023-02-24</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/2023/02/22/hello-world/</loc>
+    <loc>http://smile.github.io/2023/02/23/less-is-more/</loc>
     
-    <lastmod>2023-02-22</lastmod>
+    <lastmod>2023-02-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://smile.github.io/2023/02/22/C/</loc>
+    
+    <lastmod>2023-02-24</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -30,13 +30,27 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
-    <lastmod>2023-02-23</lastmod>
+    <loc>http://smile.github.io/</loc>
+    <lastmod>2023-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
+  <url>
+    <loc>http://smile.github.io/tags/code/</loc>
+    <lastmod>2023-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>http://smile.github.io/categories/study/</loc>
+    <lastmod>2023-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>
