@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://smile.github.io/2023/02/25/VPN/</loc>
+    
+    <lastmod>2023-02-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://smile.github.io/2023/02/22/hello-world/</loc>
     
     <lastmod>2023-02-24</lastmod>
@@ -44,10 +53,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://smile.github.io/tags/%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/</loc>
+    <lastmod>2023-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
     <loc>http://smile.github.io/categories/study/</loc>
+    <lastmod>2023-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://smile.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2023-02-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
