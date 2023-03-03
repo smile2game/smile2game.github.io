@@ -6,7 +6,7 @@
   <link href="http://smile.github.io/atom.xml" rel="self"/>
   
   <link href="http://smile.github.io/"/>
-  <updated>2023-02-24T16:35:57.663Z</updated>
+  <updated>2023-03-03T15:19:47.169Z</updated>
   <id>http://smile.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>struct</title>
+    <link href="http://smile.github.io/2023/03/03/struct/"/>
+    <id>http://smile.github.io/2023/03/03/struct/</id>
+    <published>2023-03-03T15:16:31.000Z</published>
+    <updated>2023-03-03T15:19:47.169Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="今天学了一些关于数据结构的知识"><a href="#今天学了一些关于数据结构的知识" class="headerlink" title="今天学了一些关于数据结构的知识"></a>今天学了一些关于数据结构的知识</h1><ul><li><a href="#%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%BA%86%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E7%9F%A5%E8%AF%86">今天学了一些关于数据结构的知识</a></li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//羽毛球筒栈</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1e6</span>+<span class="hljs-number">10</span>;<br><br><span class="hljs-type">int</span> stk[N],tt;<br><br>stk[++t]  =x ; <br>tt--;<br><br><span class="hljs-keyword">if</span>(tt &gt;<span class="hljs-number">0</span>) <span class="hljs-keyword">not</span> empty <br><span class="hljs-keyword">else</span>  empty<br><br><span class="hljs-type">int</span> q[N],hh,tt = <span class="hljs-number">-1</span>;<br><span class="hljs-comment">//插入 </span><br>q[++tt]  = x;<br><span class="hljs-comment">//弹出</span><br>h++ ;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;今天学了一些关于数据结构的知识&quot;&gt;&lt;a href=&quot;#今天学了一些关于数据结构的知识&quot; class=&quot;headerlink&quot; title=&quot;今天学了一些关于数据结构的知识&quot;&gt;&lt;/a&gt;今天学了一些关于数据结构的知识&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#%E</summary>
+      
+    
+    
+    
+    <category term="study" scheme="http://smile.github.io/categories/study/"/>
+    
+    
+    <category term="Acwing" scheme="http://smile.github.io/tags/Acwing/"/>
+    
+  </entry>
   
   <entry>
     <title>VPN推荐</title>

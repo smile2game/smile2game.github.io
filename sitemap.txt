@@ -1,3 +1,4 @@
+http://smile.github.io/2023/03/03/struct/
 http://smile.github.io/2023/02/25/VPN/
 http://smile.github.io/2023/02/22/hello-world/
 http://smile.github.io/2023/02/23/less-is-more/
@@ -5,5 +6,6 @@ http://smile.github.io/2023/02/22/C/
 http://smile.github.io/
 http://smile.github.io/tags/code/
 http://smile.github.io/tags/%E5%AE%9E%E7%94%A8%E8%BD%AF%E4%BB%B6/
+http://smile.github.io/tags/Acwing/
 http://smile.github.io/categories/study/
 http://smile.github.io/categories/%E8%BD%AF%E4%BB%B6%E6%8E%A8%E8%8D%90/
