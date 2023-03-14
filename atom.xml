@@ -6,7 +6,7 @@
   <link href="http://smile.github.io/atom.xml" rel="self"/>
   
   <link href="http://smile.github.io/"/>
-  <updated>2023-03-03T15:19:47.169Z</updated>
+  <updated>2023-03-14T03:21:01.266Z</updated>
   <id>http://smile.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kaggle</title>
+    <link href="http://smile.github.io/2023/03/14/kaggle/"/>
+    <id>http://smile.github.io/2023/03/14/kaggle/</id>
+    <published>2023-03-14T03:13:34.000Z</published>
+    <updated>2023-03-14T03:21:01.266Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a href="#kaggle-study-note">Kaggle study note</a><ul><li><a href="#missding-data">missding data</a></li></ul></li></ul><h1 id="Kaggle-study-note"><a href="#Kaggle-study-note" class="headerlink" title="Kaggle study note"></a>Kaggle study note</h1><h2 id="missding-data"><a href="#missding-data" class="headerlink" title="missding data"></a>missding data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#missing data</span><br>total = df_train.isnull().<span class="hljs-built_in">sum</span>().sort_values(ascending=<span class="hljs-literal">False</span>)<br>percent = (df_train.isnull().<span class="hljs-built_in">sum</span>()/df_train.isnull().count()).sort_values(ascending=<span class="hljs-literal">False</span>)<br><span class="hljs-comment">#这里sum是把值加起来，count是数了一遍，有多少个值</span><br>missing_data = pd.concat([total, percent], axis=<span class="hljs-number">1</span>, keys=[<span class="hljs-string">&#x27;Total&#x27;</span>, <span class="hljs-string">&#x27;Percent&#x27;</span>])<br>missing_data.head(<span class="hljs-number">20</span>)<br></code></pre></td></tr></table></figure><p>missing_data构建</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#kaggle-study-note&quot;&gt;Kaggle study note&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#missding-data&quot;&gt;missding data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id</summary>
+      
+    
+    
+    
+    
+    <category term="ML" scheme="http://smile.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>struct</title>
