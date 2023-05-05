@@ -41,9 +41,9 @@
     <link href="http://smile.github.io/2023/03/14/kaggle/"/>
     <id>http://smile.github.io/2023/03/14/kaggle/</id>
     <published>2023-03-14T03:13:34.000Z</published>
-    <updated>2023-03-14T04:35:17.188Z</updated>
+    <updated>2023-05-05T13:59:20.159Z</updated>
     
-    <content type="html"><![CDATA[<ul><li><a href="#kaggle-study-note">Kaggle study note</a><ul><li><a href="#%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">缺失数据处理</a></li></ul></li></ul><h1 id="Kaggle-study-note"><a href="#Kaggle-study-note" class="headerlink" title="Kaggle study note"></a>Kaggle study note</h1><h2 id="缺失数据处理"><a href="#缺失数据处理" class="headerlink" title="缺失数据处理"></a>缺失数据处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#missing data</span><br>total = df_train.isnull().<span class="hljs-built_in">sum</span>().sort_values(ascending=<span class="hljs-literal">False</span>)<br>percent = (df_train.isnull().<span class="hljs-built_in">sum</span>()/df_train.isnull().count()).sort_values(ascending=<span class="hljs-literal">False</span>)<br><span class="hljs-comment">#这里sum是把值加起来，count是数了一遍，有多少个值</span><br>missing_data = pd.concat([total, percent], axis=<span class="hljs-number">1</span>, keys=[<span class="hljs-string">&#x27;Total&#x27;</span>, <span class="hljs-string">&#x27;Percent&#x27;</span>])<br>missing_data.head(<span class="hljs-number">20</span>)<br></code></pre></td></tr></table></figure><p>missing_data构建：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">missing_data = pd.concat([total, percent], axis=<span class="hljs-number">1</span>, keys=[<span class="hljs-string">&#x27;Total&#x27;</span>, <span class="hljs-string">&#x27;Percent&#x27;</span>])<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<ul><li><a href="#kaggle-study-note">Kaggle study note</a><ul><li><a href="#%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86">缺失数据处理</a></li><li><a href="#missing_data%E6%9E%84%E5%BB%BA">missing_data构建：</a></li></ul></li></ul><h1 id="Kaggle-study-note"><a href="#Kaggle-study-note" class="headerlink" title="Kaggle study note"></a>Kaggle study note</h1><h2 id="缺失数据处理"><a href="#缺失数据处理" class="headerlink" title="缺失数据处理"></a>缺失数据处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#missing data</span><br>total = df_train.isnull().<span class="hljs-built_in">sum</span>().sort_values(ascending=<span class="hljs-literal">False</span>)<br>percent = (df_train.isnull().<span class="hljs-built_in">sum</span>()/df_train.isnull().count()).sort_values(ascending=<span class="hljs-literal">False</span>)<br><span class="hljs-comment">#这里sum是把值加起来，count是数了一遍，有多少个值</span><br>missing_data = pd.concat([total, percent], axis=<span class="hljs-number">1</span>, keys=[<span class="hljs-string">&#x27;Total&#x27;</span>, <span class="hljs-string">&#x27;Percent&#x27;</span>])<br>missing_data.head(<span class="hljs-number">20</span>)<br></code></pre></td></tr></table></figure><h2 id="missing-data构建："><a href="#missing-data构建：" class="headerlink" title="missing_data构建："></a>missing_data构建：</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">missing_data = pd.concat([total, percent], axis=<span class="hljs-number">1</span>, keys=[<span class="hljs-string">&#x27;Total&#x27;</span>, <span class="hljs-string">&#x27;Percent&#x27;</span>])<br></code></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -65,14 +65,14 @@
     <link href="http://smile.github.io/2023/03/14/5.5/"/>
     <id>http://smile.github.io/2023/03/14/5.5/</id>
     <published>2023-03-14T03:13:34.000Z</published>
-    <updated>2023-05-05T12:29:06.854Z</updated>
+    <updated>2023-05-05T13:56:55.294Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="记录一下美好生活"><a href="#记录一下美好生活" class="headerlink" title="记录一下美好生活"></a>记录一下美好生活</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="记录一下美好生活"><a href="#记录一下美好生活" class="headerlink" title="记录一下美好生活"></a>记录一下美好生活</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;nice life&quot;</span>)<br></code></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;记录一下美好生活&quot;&gt;&lt;a href=&quot;#记录一下美好生活&quot; class=&quot;headerlink&quot; title=&quot;记录一下美好生活&quot;&gt;&lt;/a&gt;记录一下美好生活&lt;/h1&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;记录一下美好生活&quot;&gt;&lt;a href=&quot;#记录一下美好生活&quot; class=&quot;headerlink&quot; title=&quot;记录一下美好生活&quot;&gt;&lt;/a&gt;记录一下美好生活&lt;/h1&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td c</summary>
       
     
     
