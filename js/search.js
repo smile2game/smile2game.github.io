@@ -1,315 +1,108 @@
-window.addEventListener('DOMContentLoaded', () => {
-  let fetched = false, fetching = false, waiting = false
-  let datas
-  const path = config.root + 'search.json'
-  const input = getElement('#search-input')
-  const nav = getElement('nav')
-  const activeHolder = config.search.activeHolder
-  const blurHolder = config.search.blurHolder
-  const noResult = config.search.noResult
-  const popup = getElement('.search-popup')
-  function fetechData() {
-    fetching = true
-    fetch(path)
-      .then(response => response.text())
-      .then(res => {
-        fetched = true
-        datas = JSON.parse(res)
-        if (waiting === true) {
-          inputEventFunction()
-        }
-      }).catch(() => fetching = false)
-  }
-  if (config.search.preload) {
-    fetechData()
-  }
-  function getIndexByWord(word, text, caseSensitive) {
-    let wordLen = word.length
-    if (wordLen === 0) return []
-    let startPosition = 0
-    let position = []
-    let index = []
-    if (!caseSensitive) {
-      text = text.toLowerCase()
-      word = word.toLowerCase()
-    }
-    while ((position = text.indexOf(word, startPosition)) > -1) {
-      index.push({
-        position: position,
-        word: word
-      })
-      startPosition = position + wordLen
-    }
-    return index
-  }
-  function mergeIntoSlice(start, end, index, searchText) {
-    let item = index[index.length - 1]
-    let position = item.position
-    let word = item.word
-    let hits = []
-    let searchTextCountInSlice = 0
-    while (position + word.length <= end && index.length !== 0) {
-      if (word === searchText) {
-        searchTextCountInSlice++
-      }
-      hits.push({
-        position: position,
-        length: word.length
-      })
-      let wordEnd = position + word.length
-      index.pop()
-      while (index.length !== 0) {
-        item = index[index.length - 1]
-        position = item.position
-        word = item.word
-        if (wordEnd > position) {
-          index.pop()
-        } else {
-          break
-        }
-      }
-    }
-    return {
-      hits: hits,
-      start: start,
-      end: end,
-      TextCount: searchTextCountInSlice
-    }
-  }
-  function highlightKeyword(text, slice) {
-    let result = ''
-    let prevEnd = slice.start
-    slice.hits.forEach(hit => {
-      result += text.substring(prevEnd, hit.position)
-      let end = hit.position + hit.length
-      result += `<nobr class="search-keyword">${text.substring(hit.position, end)}</nobr>`
-      prevEnd = end
-    })
-    result += text.substring(prevEnd, slice.end)
-    return result
-  }
-  function inLoading() {
-    getElement('#search-result').innerHTML = '<div id="loading"><div><p>Loading...</p></div></div>'
-  }
-  function onPopupClose() {
-    if (document.querySelector('.up') && document.querySelector('.closed')) {
-      getElement('.navBtn').classList.remove('expanded')
-    }
-    getElement('#search-result').querySelectorAll('a').
-      forEach((item) => item.setAttribute('tabindex', -1))
-    document.body.classList.remove('blur')
-    popup.classList.remove('open')
-  }
-  function proceedSearch() {
-    document.body.classList.add('blur')
-    if (document.querySelector('.up') && document.querySelector('.closed')) {
-      getElement('.navBtn').classList.add('expanded')
-    }
-    getElement('#search-result').removeAttribute('tabindex')
-    popup.classList.add('open')
-    if (fetched === true) {
-      popup.innerHTML = "<div id='search-result'></div>"
-      document.getElementById('search-result').innerHTML = ''
-    } else {
-      inLoading()
-    }
-  }
-  function inputEventFunction() {
-    let searchText = input.value.trim().toLowerCase()
-    if (!searchText.length) {
-      input.placeholder = activeHolder
-      onPopupClose()
-      return
-    }
-    proceedSearch()
-    if (fetched === false) {
-      return
-    }
-    let keywords = searchText.split(/[-\s]+/)
-    if (keywords.length > 1) {
-      keywords.push(searchText)
-    }
-    let resultItems = []
-    if (searchText.length > 0) {
-      datas.forEach(data => {
-        if (!data.title) {
-          return
-        }
-        let TextCount = 0, TitleCount = 0, ContentCount = 0
-        let title = data.title.trim()
-        let titleInLowerCase = title.toLowerCase()
-        let content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
-        let contentInLowerCase = content.toLowerCase()
-        let articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
-        let indexOfTitle = []
-        let indexOfContent = []
-        keywords.forEach(keyword => {
-          let hitInTitle = getIndexByWord(keyword, titleInLowerCase, false)
-          let hitInContent = getIndexByWord(keyword, contentInLowerCase, false)
-          indexOfTitle = indexOfTitle.concat(hitInTitle)
-          indexOfContent = indexOfContent.concat(hitInContent)
-          if (hitInTitle.length > 0 || hitInContent.length > 0) {
-            TextCount++
-          }
-          if (hitInTitle.length > 0) {
-            TitleCount++
-          }
-          if (hitInTitle.length > 0 || hitInContent.length > 0) {
-            ContentCount++
-          }
-        })
-        if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-          [indexOfTitle, indexOfContent].forEach(index => {
-            index.sort((itemLeft, itemRight) => {
-              if (itemRight.position !== itemLeft.position) {
-                return itemRight.position - itemLeft.position
-              }
-              return itemLeft.word.length - itemRight.word.length
-            })
-          })
+// A local search script with the help of [hexo-generator-search](https://github.com/PaicHyperionDev/hexo-generator-search)
+// Copyright (C) 2020
+// Liam Huang <http://github.com/Liam0205>
+// Zona Hu <http://github.com/Zonahu>
+// This library is free software; you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as
+// published by the Free Software Foundation; either version 2.1 of the
+// License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+// 02110-1301 USA
+//
 
-          let slicesOfTitle = []
-          let slicesOfContent = []
-          if (indexOfTitle.length !== 0) {
-            let tmp = mergeIntoSlice(0, title.length, indexOfTitle, searchText)
-            slicesOfTitle.push(tmp)
-          }
-          let upperBound = parseInt(config.top_n_per_article, 10)
-          if (upperBound >= 0) {
-            slicesOfContent = slicesOfContent.slice(0, upperBound)
-          }
-          let resultItem = ''
-          if (slicesOfTitle.length !== 0) {
-            resultItem += `<a href="${articleUrl}" class="recent-post"><b class="search-result-title">${highlightKeyword(title, slicesOfTitle[0])}</b>`
-          } else {
-            resultItem += `<a href="${articleUrl}" class="recent-post"><b class="search-result-title">${title}</b>`
-          }
-          if (indexOfContent !== null && indexOfContent.length !== 0) {
-            let item = indexOfContent[indexOfContent.length - 1]
-            let position = item.position
-            let word = item.word
-            let start = position - 20
-            let end = position + 80
-            if (start < 0) {
-              start = 0
-            }
-            if (end < position + word.length) {
-              end = position + word.length
-            }
-            if (end > content.length) {
-              end = content.length
-            }
-            let tmp = mergeIntoSlice(start, end, indexOfContent, searchText)
-            resultItem += `<p class="search-result">${highlightKeyword(content, tmp)}...</p>`
-          } else {
-            resultItem += `<p class="search-result">${content}...</p>`
-          }
-          resultItem += '</a>'
-          resultItems.push({
-            item: resultItem,
-            TextCount: TextCount,
-            TitleCount: TitleCount,
-            ContentCount: ContentCount,
-            id: resultItems.length
-          })
+var searchFunc = function (path, search_id, content_id) {
+    // 0x00. environment initialization
+    'use strict';
+    var BTN = "<i id='local-search-close'>×</i>";
+    var $input = document.getElementById(search_id);
+    var $resultContent = document.getElementById(content_id);
+    $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+            // 0x02. parse xml file
+            var datas = $("entry", xmlResponse).map(function () {
+                return {
+                    title: $("title", this).text(),
+                    content: $("content", this).text(),
+                    url: $("url", this).text()
+                };
+            }).get();
+            $resultContent.innerHTML = "";
+
+            $input.addEventListener('input', function () {
+                // 0x03. parse query to keywords list
+                var str = '<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // 0x04. perform local searching
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    if (!data.title || data.title.trim() === '') {
+                        data.title = "Untitled";
+                    }
+                    var orig_data_title = data.title.trim();
+                    var data_title = orig_data_title.toLowerCase();
+                    var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+                    var data_content = orig_data_content.toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty contents
+                    if (data_content !== '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                                // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                            }
+                        });
+                    } else {
+                        isMatch = false;
+                    }
+                    // 0x05. show search results
+                    if (isMatch) {
+                        str += "<li><a href='" + data_url + "' class='search-result-title' target='_blank'>" + orig_data_title + "</a>";
+                        str += "</li>";
+                    }
+                });
+                if (str.indexOf('<li>') === -1) {
+                    return $resultContent.innerHTML = BTN + "<ul><span class='local-search-empty'>We didn't find any results for the search, please try other keywords.<span></ul>";
+                }
+                $resultContent.innerHTML = BTN + str;
+            });
         }
-      })
-    }
-    popup.scroll({ top: 0, left: 0 })
-    let resultList = getElement('#search-result')
-    if (resultItems.length === 0) {
-      resultList.innerHTML =
-        `<div id="no-result"><p>${format(noResult, `<b>${input.value}</b>`)}</p></div>`
-    } else {
-      resultItems.sort((Left, Right) => {
-        if (Left.TextCount !== Right.TextCount) {
-          return Right.TextCount - Left.TextCount
-        } else if (Left.TitleCount !== Right.TitleCount) {
-          return Right.TitleCount - Left.TitleCount
-        } else if (Left.ContentCount !== Right.ContentCount) {
-          return Right.ContentCount - Left.ContentCount
-        }
-        return Right.id - Left.id
-      })
-      let searchResultList = ""
-      resultItems.forEach(result => {
-        searchResultList += result.item
-      })
-      resultList.innerHTML = searchResultList
-    }
-    if (typeof pjax !== 'undefined') {
-      pjax.refresh(resultList)
-    }
-  }
-  input.addEventListener('keypress', event => {
-    if (event.key === 13) {
-      inputEventFunction()
-    }
-  })
-  function StartSearch() {
-    nav.classList.add('search')
-    header.closeAll()
-    if (document.querySelector('.up')) {
-      getElement('main').style.pointerEvents = 'none'
-    }
-    input.placeholder = activeHolder
-    if (!fetched) {
-      if (!fetching) {
-        fetechData()
-      }
-      waiting = true
-    }
-  }
-  function EscapeSearch() {
-    if (!nav.classList.contains('search')) {
-      return
-    }
-    nav.classList.remove('search')
-    onPopupClose()
-    input.value = ''
-    input.placeholder = blurHolder
-    document.removeEventListener('mouseup', EscapeSearch)
-    waiting = false
-    getElement('main').style.pointerEvents = ''
-    input.blur()
-  }
-  input.addEventListener('keyup', () => {
-    nav.classList.add('search')
-    inputEventFunction()
-  })
-  input.addEventListener('focus', () => {
-    StartSearch()
-  })
-  input.addEventListener('blur', event => {
-    if (!event.relatedTarget ||
-      event.relatedTarget.parentElement !== getElement('#search-result')) {
-      EscapeSearch()
-    }
-  })
-  popup.addEventListener('focusout', event => {
-    if (!event.relatedTarget ||
-      (event.relatedTarget !== input &&
-        event.relatedTarget.parentElement !== getElement('#search-result'))) {
-      EscapeSearch()
-    }
-  })
-  document.addEventListener('keyup', event => {
-    if (event.key === 'Escape') {
-      EscapeSearch()
-    } else if (event.key === 'f' && 
-      !['INPUT', 'TEXTAREA'].includes(event.target.tagName)) {
-      if (!document.querySelector('.up')) {
-        getElement('.navBtn').classList.remove('hide')
-        header.open()
-      }
-      StartSearch()
-      input.focus()
-    }
-  })
-  document.addEventListener('click', event => {
-    if (event.target.tagName === 'A' ||
-      event.target.parentElement.tagName === 'A') {
-      EscapeSearch()
-    }
-  })
-})
+    });
+    $(document).on('click', '#local-search-close', function() {
+        $('#local-search-input').val('');
+        $('#local-search-result').html('');
+    });
+};
+
+var getSearchFile = function(){
+    var path = "/search.xml";
+    searchFunc(path, 'local-search-input', 'local-search-result');
+};
